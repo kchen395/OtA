@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import Gallery from "./Gallery.js"
+import Gallery from "./Gallery.js";
 import {
   AccountData,
-  // ContractData,
   ContractForm
 } from "drizzle-react-components";
 import PropTypes from "prop-types";
@@ -62,64 +61,18 @@ class Home extends Component {
       for (let i = total; i >= 0; i--) {
         if (counter > this.state.length) break;
         counter++;
-        let nProm = this.contracts.TopArt.methods.getName(i).call();
-        let tProm = this.contracts.TopArt.methods.getThumbnail(i).call();
-        let lProm = this.contracts.TopArt.methods.getLink(i).call();
-        let dProm = this.contracts.TopArt.methods.getDescription(i).call();
-        let uProm = this.contracts.TopArt.methods.getUpvotes(i).call();
-				let aProm = this.contracts.TopArt.methods.getAddress(i).call();
-        Promise.all([nProm, tProm, lProm, dProm, uProm, aProm])
-          .then(value => {
-						let entry = {
-							name: value[0],
-							thumbnail: value[1],
-							link: value[2],
-							description: value[3],
-							upvotes: value[4],
-							address: value[5],
-							id: i
-						}
-            this.setState({
-              data: [
-                ...this.state.data,
-                entry
-              ]
-            });
-          })
-          .catch(error => {
-            console.log(error.message);
-          });
-			}
-			
+        dataHelper(this, i).catch(error => {
+          console.log(error.message);
+        });
+      }
     } else if (type === "popular") {
       for (let i = total; i >= 0; i--) {
-        let nProm = this.contracts.TopArt.methods.getName(i).call();
-        let tProm = this.contracts.TopArt.methods.getThumbnail(i).call();
-        let lProm = this.contracts.TopArt.methods.getLink(i).call();
-        let dProm = this.contracts.TopArt.methods.getDescription(i).call();
-				let uProm = this.contracts.TopArt.methods.getUpvotes(i).call();
-				let aProm = this.contracts.TopArt.methods.getAddress(i).call();
-        Promise.all([nProm, tProm, lProm, dProm, uProm, aProm])
-          .then(value => {
-						let entry = {
-							name: value[0],
-							thumbnail: value[1],
-							link: value[2],
-							description: value[3],
-							upvotes: value[4],
-							address: value[5],
-							id: i
-						}
+        dataHelper(this, i)
+          .then(() => {
             this.setState({
-              data: [
-                ...this.state.data,
-                entry
-              ]
+              data: this.state.data.sort((a, b) => b.upvotes - a.upvotes)
             });
-					})
-					.then(() => {
-						this.setState({data: this.state.data.sort((a, b) => b.upvotes - a.upvotes)})
-					})
+          })
           .catch(error => {
             console.log(error.message);
           });
@@ -159,7 +112,7 @@ class Home extends Component {
               </select>
             </div>
             <br />
-						<Gallery data={this.state.data}/>
+            <Gallery data={this.state.data} />
             <br />
             <div>
               <button onClick={this.handleClick} className="btn">
@@ -178,5 +131,28 @@ class Home extends Component {
 Home.contextTypes = {
   drizzle: PropTypes.object
 };
+
+function dataHelper(that, i) {
+  let nProm = that.contracts.TopArt.methods.getName(i).call();
+  let tProm = that.contracts.TopArt.methods.getThumbnail(i).call();
+  let lProm = that.contracts.TopArt.methods.getLink(i).call();
+  let dProm = that.contracts.TopArt.methods.getDescription(i).call();
+  let uProm = that.contracts.TopArt.methods.getUpvotes(i).call();
+  let aProm = that.contracts.TopArt.methods.getAddress(i).call();
+  return Promise.all([nProm, tProm, lProm, dProm, uProm, aProm]).then(value => {
+    let entry = {
+      name: value[0],
+      thumbnail: value[1],
+      link: value[2],
+      description: value[3],
+      upvotes: value[4],
+      address: value[5],
+      id: i
+    };
+    that.setState({
+      data: [...that.state.data, entry]
+    });
+  });
+}
 
 export default Home;

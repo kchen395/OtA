@@ -12,7 +12,7 @@ const drizzleOptions = {
 		TopArt
   ],
   events: {
-		TopArt: ['StorageSet']
+		TopArt: ['Set']
   },
   polls: {
     accounts: 1500

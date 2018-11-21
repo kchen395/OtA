@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 contract TopArt {
-  event StorageSet(
+  event Set(
     string _message
   );
 
@@ -32,7 +32,7 @@ contract TopArt {
     data.addr = addr;
     dataItems[counter] = data;
     counter++;
-    emit StorageSet("Data pushed successfully!");
+    emit Set("Data pushed successfully!");
   }
 
   function getName(uint id) public view returns (string) {
