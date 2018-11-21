@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Gallery from "./Gallery.js";
-import {
-  AccountData,
-  ContractForm
-} from "drizzle-react-components";
+import { ContractForm } from "drizzle-react-components";
 import PropTypes from "prop-types";
+import Web3 from "web3";
+const web3Provider = new Web3.providers.HttpProvider("http://localhost:8545");
+const web3 = new Web3(web3Provider);
 
 class Home extends Component {
   constructor(props, context) {
@@ -14,13 +14,15 @@ class Home extends Component {
       value: null,
       data: [],
       total: null,
-      type: "recent"
+      type: "recent",
+      account: null
     };
     this.contracts = context.drizzle.contracts;
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleLike = this.handleLike.bind(this);
     this.getData = this.getData.bind(this);
+    this.donate = this.donate.bind(this);
   }
 
   handleClick() {
@@ -41,12 +43,21 @@ class Home extends Component {
       .catch(error => console.log(error.message));
   }
 
+  donate(receiver, amount) {
+    window.web3.eth.sendTransaction({
+      from: this.state.account,
+      to: receiver,
+      value: web3.utils.toWei(amount)
+    });
+  }
+
   componentDidMount() {
     this.contracts.TopArt.methods
       .getCounter()
       .call()
-      .then(total => {
-        this.setState({ total: total - 1 });
+      .then(async total => {
+        let accounts = await web3.eth.getAccounts();
+        this.setState({ total: total - 1, account: accounts[0] });
         this.getData(this.state.type);
       })
       .catch(error => console.log(error.message));
@@ -92,12 +103,12 @@ class Home extends Component {
 
           <div className="pure-u-1-1">
             <h2>Your Account</h2>
-            <AccountData accountIndex="0" units="ether" precision="3" />
+            <p>{this.state.account}</p>
           </div>
 
           <div className="pure-u-1-1">
             <h2>Submit</h2>
-            <p>Add your art to the blockchain!</p>
+            <p>Add your art to the Ethereum blockchain!</p>
             <ContractForm
               contract="TopArt"
               method="add"
@@ -112,7 +123,11 @@ class Home extends Component {
               </select>
             </div>
             <br />
-            <Gallery data={this.state.data} like={this.handleLike}/>
+            <Gallery
+              data={this.state.data}
+              like={this.handleLike}
+              donate={this.donate}
+            />
             <br />
             <div>
               <button onClick={this.handleClick} className="btn">

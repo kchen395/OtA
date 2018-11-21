@@ -1,52 +1,70 @@
-import React from "react";
+import React, { Component } from "react";
 
-const Gallery = ({ data, like }) => {
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Image</th>
-          <th>Description</th>
-          <th>Upvotes</th>
-          <th>Address</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data
-          .filter(item => item.name)
-          .map((item, i) => {
-            return (
-              <tr key={i}>
-                <td>{item.name}</td>
-                <td>
-                  <a href={item.link}>
-                    <img
-                      src={item.thumbnail}
-                      alt={"Image " + i}
-                      width="200px"
-                    />
-                  </a>
-                </td>
-                <td>{item.description}</td>
-                <td>
-                  <button
-                    className="btn"
-                    onClick={() => like(item.id)}
-                  >
-                    <i className="fa fa-caret-up" />
-                  </button>
-                  <div>{item.upvotes}</div>
-                </td>
-                <td>
-                  <p>{item.address}</p>
-                </td>
-              </tr>
-            );
-          })}
-      </tbody>
-    </table>
-  );
+export default class Gallery extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      amount: null
+		};
+		this.onChange = this.onChange.bind(this);
+	}
+	
+	onChange(e) {
+		this.setState({amount: e.target.value})
+	}
+
+	render() {
+		const {data, like, donate} = this.props
+		return (
+			<table>
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Work</th>
+						<th>Description</th>
+						<th>Upvotes</th>
+						<th>Support Artist</th>
+					</tr>
+				</thead>
+				<tbody>
+					{data
+						.filter(item => item.name)
+						.map((item, i) => {
+							return (
+								<tr key={i}>
+									<td>{item.name}</td>
+									<td>
+										<a href={item.link}>
+											<img
+												src={item.thumbnail}
+												alt={"Image " + i}
+												display="block"
+												width="200px"
+												height="auto"
+											/>
+										</a>
+									</td>
+									<td>{item.description}</td>
+									<td>
+										<button
+											className="btn"
+											onClick={() => like(item.id)}
+										>
+											<i className="fa fa-caret-up" />
+										</button>
+										<div>{item.upvotes}</div>
+									</td>
+									<td>
+										<form>
+											<input type="number" min="0" step="0.01" onChange={this.onChange}></input>
+										</form>
+										<button className="pure-button" onClick={() => donate(item.address, this.state.amount)}>Send Ether</button>
+									</td>
+								</tr>
+							);
+						})}
+				</tbody>
+			</table>
+		);	
+	}
 };
-
-export default Gallery;

@@ -28,8 +28,7 @@ th {
 
 td {
 	padding: 2px 10px;
-	height: 50px; 
-	width: 50px;
+	width: 200px;
 	text-align: center; 
 	vertical-align: middle;
 }
@@ -60,6 +59,10 @@ code {
 }
 
 .pure-form input[type="text"] {
+	color: black;
+}
+
+input {
 	color: black;
 }
 
@@ -143,11 +146,12 @@ ul li:not(:last-child) {
 }
 
 .pure-button {
-	background-color: whitesmoke; 
+	background-color: white; 
 	color: lightskyblue; 
 	font-size: 16px; 
 	cursor: pointer;
 	background-image: none;
+	margin-top: 5px;
 }
 
 .pure-button:hover {
