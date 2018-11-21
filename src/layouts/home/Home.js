@@ -3,8 +3,7 @@ import Gallery from "./Gallery.js";
 import { ContractForm } from "drizzle-react-components";
 import PropTypes from "prop-types";
 import Web3 from "web3";
-const web3Provider = new Web3.providers.HttpProvider("http://localhost:8545");
-const web3 = new Web3(web3Provider);
+const web3 = new Web3(window.web3.currentProvider);
 
 class Home extends Component {
   constructor(props, context) {
@@ -44,11 +43,11 @@ class Home extends Component {
   }
 
   donate(receiver, amount) {
-    window.web3.eth.sendTransaction({
+    web3.eth.sendTransaction({
       from: this.state.account,
       to: receiver,
       value: web3.utils.toWei(amount)
-    });
+		})
   }
 
   componentDidMount() {
