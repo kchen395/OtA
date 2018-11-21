@@ -112,7 +112,7 @@ class Home extends Component {
               </select>
             </div>
             <br />
-            <Gallery data={this.state.data} />
+            <Gallery data={this.state.data} like={this.handleLike}/>
             <br />
             <div>
               <button onClick={this.handleClick} className="btn">

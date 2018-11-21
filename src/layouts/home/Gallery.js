@@ -1,6 +1,6 @@
 import React from "react";
 
-const Gallery = ({ data }) => {
+const Gallery = ({ data, like }) => {
   return (
     <table>
       <thead>
@@ -32,7 +32,7 @@ const Gallery = ({ data }) => {
                 <td>
                   <button
                     className="btn"
-                    onClick={() => this.handleLike(item.id)}
+                    onClick={() => like(item.id)}
                   >
                     <i className="fa fa-caret-up" />
                   </button>
