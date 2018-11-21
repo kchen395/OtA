@@ -1,0 +1,159 @@
+/* PAGE */
+
+body,
+.pure-g [class*=pure-u] {
+	font-family: 'Open Sans', sans-serif;
+	background: whitesmoke;
+	color: lightskyblue;
+}
+
+.header {
+  text-align: center;
+}
+
+h1, h2, h3 {
+	font-family: 'Oswald', 'Arial Narrow', sans-serif;
+	color: lightsalmon;
+}
+
+table {
+	width: 70%;
+	background-color: white;
+}
+
+th {
+	color: lightsalmon;
+	padding: 0px 7px;
+}
+
+td {
+	padding: 2px 10px;
+	height: 50px; 
+	width: 50px;
+	text-align: center; 
+	vertical-align: middle;
+}
+
+table, th, td {
+	border: 1px dotted lightskyblue;
+}
+
+select {
+	background-color: white;
+	color: lightskyblue;
+	outline: none;
+	border: none;
+}
+
+code {
+  padding: .25rem;
+  margin: 0 .25rem;
+  background: #eee;
+}
+
+.container {
+  box-sizing: border-box;
+  width: calc(100% - 60px);
+  max-width: 1200px;
+  padding: 45px 20px;
+  margin: 0 auto;
+}
+
+.pure-form input[type="text"] {
+	color: black;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul li:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+/* NAVBAR */
+
+.navbar {
+  position: fixed;
+  padding: 5px;
+  background: #0c1a2b;
+  font-family: 'Oswald', 'Arial Narrow', sans-serif;
+}
+
+.navbar a {
+  color: #fff;
+}
+
+.navbar a:active,
+.navbar a:focus,
+.navbar a:hover {
+  background: #233e5e;
+}
+
+.navbar .pure-menu-heading {
+  font-weight: bold;
+  text-transform: none;
+}
+
+.navbar .navbar-right {
+  float: right;
+}
+
+.navbar .uport-logo {
+  height: 16px;
+  margin-right: 10px;
+}
+
+/* LOADING SCREEN */
+
+.loading-screen {
+  opacity: 1;
+  visibility: visible;
+  transition: all .25s ease-in-out;
+}
+
+.loading-screen.loaded {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* FORMS */
+
+.pure-form {
+  display: inline-block;
+}
+
+/* ALERTS */
+
+.alert {
+  padding: .5rem;
+  color: darkgreen;
+  background: darkseagreen;
+  border: 1px solid darkgreen;
+}
+
+.btn {
+	background-color: white; 
+	border: none; 
+	outline: none;
+	color: lightskyblue; 
+	font-size: 16px; 
+	cursor: pointer; 
+}
+
+.pure-button {
+	background-color: whitesmoke; 
+	color: lightskyblue; 
+	font-size: 16px; 
+	cursor: pointer;
+	background-image: none;
+}
+
+.pure-button:hover {
+	background-image: none;
+}
+
+.pure-button:focus {
+	background-image: none;
+}
