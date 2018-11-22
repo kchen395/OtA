@@ -15,7 +15,13 @@ h1,
 h2,
 h3 {
   font-family: "Oswald", "Arial Narrow", sans-serif;
-  color: lightsalmon;
+	color: lightsalmon;
+	margin-block-start: 0px;
+	margin-block-end: 10px;
+}
+
+h1 {
+	font-size: 70px;
 }
 
 table {
@@ -58,7 +64,7 @@ code {
   box-sizing: border-box;
   width: calc(100% - 60px);
   max-width: 1200px;
-  padding: 45px 20px;
+  padding: 25px 20px;
   margin: 0 auto;
 }
 

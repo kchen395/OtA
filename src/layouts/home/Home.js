@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Gallery from "./Gallery.js";
-import { ContractForm } from "drizzle-react-components";
+import FeaturedWork from "./FeaturedWork.js";
+import ContractForm from "./ContractForm.js";
 import PropTypes from "prop-types";
 import Web3 from "web3";
 import Modal from "react-responsive-modal";
@@ -23,7 +24,16 @@ class Home extends Component {
       type: "recent",
       account: null,
       open: false,
-      done: false
+      done: false,
+      vip: {
+        name: "Childish Gambino - Feels Like Summer",
+        thumbnail: "https://i.ytimg.com/vi/F1B9Fk_SgI0/maxresdefault.jpg",
+        link: "https://www.youtube.com/watch?v=F1B9Fk_SgI0",
+        description:
+          "Unique music video depicting recent rap stars and hip-hop icons",
+        address: "0x9C4C5497ba4EB915689bf4aF0A4C94980429Ec28",
+        id: -1
+      }
     };
     this.contracts = context.drizzle.contracts;
     this.handleClick = this.handleClick.bind(this);
@@ -33,6 +43,8 @@ class Home extends Component {
     this.donate = this.donate.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.dataHelper = this.dataHelper.bind(this);
+    this.vipCheck = this.vipCheck.bind(this);
   }
 
   async handleClick() {
@@ -40,9 +52,14 @@ class Home extends Component {
     await this.getData(this.state.type);
   }
 
-  handleChange(e) {
-    this.setState({ type: e.target.value, done: false });
-    this.getData(e.target.value);
+  async handleChange(e) {
+    let val = e.target.value;
+    await this.setState({ type: val, done: false, length: 10 });
+    await this.getData(val);
+  }
+
+  vipCheck() {
+    this.setState({ vipCheck: true });
   }
 
   handleLike(id) {
@@ -86,9 +103,10 @@ class Home extends Component {
     let total = this.state.total;
 
     if (type === "recent") {
-			(async () => {
+      (async () => {
         for (let i = this.state.length; i > 0; i--) {
-          await dataHelper(this, total--);
+          if (total === 0) break;
+          await this.dataHelper(total--);
         }
         this.setState({
           done: true
@@ -96,8 +114,8 @@ class Home extends Component {
       })();
     } else if (type === "popular") {
       (async () => {
-        for (let i = total; i >= 0; i--) {
-          await dataHelper(this, i);
+        for (let i = total; i > 0; i--) {
+          await this.dataHelper(i);
         }
         this.setState({
           data: this.state.data
@@ -107,11 +125,63 @@ class Home extends Component {
         });
       })();
     }
+    this.contracts.TopArt.methods
+      .getVip()
+      .call()
+      .then(bool => {
+        if (bool) {
+          let nProm = this.contracts.TopArt.methods.getName(0).call();
+          let tProm = this.contracts.TopArt.methods.getThumbnail(0).call();
+          let lProm = this.contracts.TopArt.methods.getLink(0).call();
+          let dProm = this.contracts.TopArt.methods.getDescription(0).call();
+          let aProm = this.contracts.TopArt.methods.getAddress(0).call();
+          return Promise.all([nProm, tProm, lProm, dProm, aProm]).then(
+            value => {
+              let entry = {
+                name: value[0],
+                thumbnail: value[1],
+                link: value[2],
+                description: value[3],
+                address: value[4],
+                id: 0
+              };
+              this.setState({
+                vip: entry
+              });
+            }
+          );
+        }
+      });
+  }
+
+  dataHelper(i) {
+    let nProm = this.contracts.TopArt.methods.getName(i).call();
+    let tProm = this.contracts.TopArt.methods.getThumbnail(i).call();
+    let lProm = this.contracts.TopArt.methods.getLink(i).call();
+    let dProm = this.contracts.TopArt.methods.getDescription(i).call();
+    let uProm = this.contracts.TopArt.methods.getUpvotes(i).call();
+    let aProm = this.contracts.TopArt.methods.getAddress(i).call();
+    return Promise.all([nProm, tProm, lProm, dProm, uProm, aProm]).then(
+      value => {
+        let entry = {
+          name: value[0],
+          thumbnail: value[1],
+          link: value[2],
+          description: value[3],
+          upvotes: value[4],
+          address: value[5],
+          id: i
+        };
+        this.setState({
+          data: [...this.state.data, entry]
+        });
+      }
+    );
   }
 
   render() {
     let phrase = "Works";
-    if (this.state.total === 1) {
+    if (this.state.total === 0) {
       phrase = "Work";
     }
     return (
@@ -120,7 +190,7 @@ class Home extends Component {
           <button onClick={this.openModal} className="pure-button">
             Submit
           </button>
-          <Modal open={this.state.open} onClose={this.closeModal} center>
+          <Modal open={this.state.open} onClose={this.closeModal}>
             <h2>Submit Form</h2>
             <p>Add your art to the Ethereum blockchain!</p>
             <p>Your Account: {this.state.account}</p>
@@ -137,13 +207,22 @@ class Home extends Component {
             <h1>OtA</h1>
             <p>Decentralized Art Gallery</p>
             <p>
-              Ethereum Storing {this.state.total} {phrase} of Art
+              Ethereum Storing {this.state.total + 1} {phrase} of Art
             </p>
+          </div>
+
+          <div className="pure-u-1-1 header">
+            <h2>Featured</h2>
+            <FeaturedWork
+              vip={this.state.vip}
+              account={this.state.account}
+              donate={this.donate}
+              web3={web3}
+            />
           </div>
 
           <div className="pure-u-1-1">
             <h2>Gallery</h2>
-
             <div>
               <select onChange={this.handleChange}>
                 <option value={"recent"}>Most Recent</option>
@@ -176,28 +255,5 @@ class Home extends Component {
 Home.contextTypes = {
   drizzle: PropTypes.object
 };
-
-function dataHelper(that, i) {
-  let nProm = that.contracts.TopArt.methods.getName(i).call();
-  let tProm = that.contracts.TopArt.methods.getThumbnail(i).call();
-  let lProm = that.contracts.TopArt.methods.getLink(i).call();
-  let dProm = that.contracts.TopArt.methods.getDescription(i).call();
-  let uProm = that.contracts.TopArt.methods.getUpvotes(i).call();
-  let aProm = that.contracts.TopArt.methods.getAddress(i).call();
-  return Promise.all([nProm, tProm, lProm, dProm, uProm, aProm]).then(value => {
-    let entry = {
-      name: value[0],
-      thumbnail: value[1],
-      link: value[2],
-      description: value[3],
-      upvotes: value[4],
-      address: value[5],
-      id: i
-    };
-    that.setState({
-      data: [...that.state.data, entry]
-    });
-  });
-}
 
 export default Home;
