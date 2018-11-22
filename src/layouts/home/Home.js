@@ -93,12 +93,13 @@ class Home extends Component {
   getData(type) {
     this.setState({ data: [] });
     let total = this.state.total;
-
+    console.log(this.state.data);
     if (type === "recent") {
       (async () => {
-        for (let i = this.state.length; i > 0; i--) {
-          if (total === 0) break;
-          await this.dataHelper(total--);
+        let counter = await this.contracts.TopArt.methods.getCounter().call().then(count => count);
+				for (let i = this.state.length; i > 0; i--) {
+          if (counter === 0) break;
+          await this.dataHelper(counter--);
         }
         this.setState({
           done: true
@@ -182,16 +183,19 @@ class Home extends Component {
     if (!this.state.done) {
       return (
         <main className="container">
-				        <div className="pure-g">
-          <div className="pure-u-1-1 header">
-            <h1>OtA</h1>
-            <p>Decentralized Art Gallery</p>
-						<div>
-					<img src="https://loading.io/spinners/ellipsis/lg.discuss-ellipsis-preloader.gif" alt="loading gif" className="center"/>
-				</div>
-
+          <div className="pure-g">
+            <div className="pure-u-1-1 header">
+              <h1>OtA</h1>
+              <p>Decentralized Art Gallery</p>
+              <div>
+                <img
+                  src="https://loading.io/spinners/ellipsis/lg.discuss-ellipsis-preloader.gif"
+                  alt="loading gif"
+                  className="center"
+                />
+              </div>
+            </div>
           </div>
-</div>
         </main>
       );
     }
