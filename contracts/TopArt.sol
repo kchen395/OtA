@@ -32,13 +32,6 @@ contract TopArt {
     uint upvotes = 0;
     address addr = msg.sender;
     Data memory data = Data(counter, name, thumbnail, link, description, upvotes, addr);
-    data.id = counter;
-    data.name = name;
-    data.thumbnail = thumbnail;
-    data.link = link;
-    data.description = description;
-    data.upvotes = upvotes;
-    data.addr = addr;
     dataItems[counter] = data;
     counter++;
     emit Set("Data pushed successfully!");
@@ -51,13 +44,6 @@ contract TopArt {
     uint upvotes = 0;
     address addr = msg.sender;
     Data memory data = Data(0, name, thumbnail, link, description, upvotes, addr);
-    data.id = 0;
-    data.name = name;
-    data.thumbnail = thumbnail;
-    data.link = link;
-    data.description = description;
-    data.upvotes = upvotes;
-    data.addr = addr;
     dataItems[0] = data;
     emit Set("Data pushed successfully!");
   }
