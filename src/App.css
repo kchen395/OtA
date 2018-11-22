@@ -17,7 +17,7 @@ h1, h2, h3 {
 }
 
 table {
-	width: 70%;
+	width: 100%;
 	background-color: white;
 }
 
@@ -160,4 +160,8 @@ ul li:not(:last-child) {
 
 .pure-button:focus {
 	background-image: none;
+}
+
+.right {
+	float: right;
 }

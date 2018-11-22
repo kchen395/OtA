@@ -3,7 +3,14 @@ import Gallery from "./Gallery.js";
 import { ContractForm } from "drizzle-react-components";
 import PropTypes from "prop-types";
 import Web3 from "web3";
-const web3 = new Web3(window.web3.currentProvider);
+import Modal from "react-responsive-modal";
+
+let web3;
+if (!window.web3) {
+  web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+} else {
+  web3 = new Web3(window.web3.currentProvider);
+}
 
 class Home extends Component {
   constructor(props, context) {
@@ -14,7 +21,8 @@ class Home extends Component {
       data: [],
       total: null,
       type: "recent",
-      account: null
+      account: null,
+      open: false
     };
     this.contracts = context.drizzle.contracts;
     this.handleClick = this.handleClick.bind(this);
@@ -22,6 +30,8 @@ class Home extends Component {
     this.handleLike = this.handleLike.bind(this);
     this.getData = this.getData.bind(this);
     this.donate = this.donate.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   handleClick() {
@@ -42,12 +52,20 @@ class Home extends Component {
       .catch(error => console.log(error.message));
   }
 
+  openModal() {
+    this.setState({ open: true });
+  }
+
+  closeModal() {
+    this.setState({ open: false });
+  }
+
   donate(receiver, amount) {
     web3.eth.sendTransaction({
       from: this.state.account,
       to: receiver,
       value: web3.utils.toWei(amount)
-		})
+    });
   }
 
   componentDidMount() {
@@ -91,30 +109,40 @@ class Home extends Component {
   }
 
   render() {
+    let phrase = "Works";
+    if (this.state.total === 1) {
+      phrase = "Work";
+    }
     return (
       <main className="container">
-        <div className="pure-g">
-          <div className="pure-u-1-1 header">
-            <h1>OtA</h1>
-            <h4>Total Works: {this.state.total}</h4>
-            <br />
-          </div>
-
-          <div className="pure-u-1-1">
-            <h2>Your Account</h2>
-            <p>{this.state.account}</p>
-          </div>
-
-          <div className="pure-u-1-1">
-            <h2>Submit</h2>
+        <div>
+          <button onClick={this.openModal} className="pure-button">
+            Submit
+          </button>
+          <Modal open={this.state.open} onClose={this.closeModal} center>
+            <h2>Submit Form</h2>
             <p>Add your art to the Ethereum blockchain!</p>
+            <p>Your Account: {this.state.account}</p>
             <ContractForm
               contract="TopArt"
               method="add"
               labels={["title", "thumbnail url", "link url", "description"]}
             />
+          </Modal>
+        </div>
 
+        <div className="pure-g">
+          <div className="pure-u-1-1 header">
+            <h1>OtA</h1>
+            <p>Decentralized Art Gallery</p>
+            <p>
+              Ethereum Storing {this.state.total} {phrase} of Art
+            </p>
+          </div>
+
+          <div className="pure-u-1-1">
             <h2>Gallery</h2>
+
             <div>
               <select onChange={this.handleChange}>
                 <option value={"recent"}>Most Recent</option>
@@ -128,6 +156,7 @@ class Home extends Component {
               donate={this.donate}
             />
             <br />
+
             <div>
               <button onClick={this.handleClick} className="btn">
                 Show More
