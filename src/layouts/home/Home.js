@@ -96,7 +96,7 @@ class Home extends Component {
     console.log(this.state.data);
     if (type === "recent") {
       (async () => {
-        let counter = await this.contracts.TopArt.methods.getCounter().call().then(count => count);
+        let counter = await this.contracts.TopArt.methods.getCounter().call().then(count => count).catch(error => console.log(error.message));
 				for (let i = this.state.length; i > 0; i--) {
           if (counter === 0) break;
           await this.dataHelper(counter--);
