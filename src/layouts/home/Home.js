@@ -198,7 +198,7 @@ class Home extends Component {
           <div className="pure-g">
             <div className="pure-u-1-1 header">
               <h1>OtA</h1>
-              <p>Decentralized Art Gallery</p>
+              <h4>Decentralized Art Gallery</h4>
               <div>
                 <img
                   src="https://loading.io/spinners/ellipsis/lg.discuss-ellipsis-preloader.gif"
@@ -229,16 +229,16 @@ class Home extends Component {
         <div className="pure-g">
           <div className="pure-u-1-1 header">
             <h1>OtA</h1>
-            <p>Decentralized Art Gallery</p>
-            <p>
+            <h4>Decentralized Art Gallery</h4>
+            <h4>
               Ethereum Storing {this.state.total + 1} {phrase} of Art
-            </p>
+            </h4>
           </div>
 
           <div className="pure-u-1-1 header">
 					<div>
 					<h2 className="inline">Featured</h2>
-						<button onClick={this.toggle} className="toggle pure-button smoke inline">{this.state.toggle ? <i class="fa fa-toggle-on"></i> : <i class="fa fa-toggle-off"></i>}</button>
+						<button onClick={this.toggle} className="toggle pure-button smoke inline">{this.state.toggle ? <i className="fa fa-toggle-on"></i> : <i className="fa fa-toggle-off"></i>}</button>
 
 					</div>
             <FeaturedWork

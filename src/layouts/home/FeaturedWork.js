@@ -29,7 +29,6 @@ class FeaturedWork extends Component {
 
   render() {
     const { vip, account, donate, web3, toggle } = this.props;
-    console.log(toggle);
     if (vip === null || !toggle) {
       return (
         <div>
