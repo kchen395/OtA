@@ -1,52 +1,56 @@
 /* PAGE */
 
 body,
-.pure-g [class*=pure-u] {
-	font-family: 'Open Sans', sans-serif;
-	background: whitesmoke;
-	color: lightskyblue;
+.pure-g [class*="pure-u"] {
+  font-family: "Open Sans", sans-serif;
+  background: whitesmoke;
+  color: lightskyblue;
 }
 
 .header {
   text-align: center;
 }
 
-h1, h2, h3 {
-	font-family: 'Oswald', 'Arial Narrow', sans-serif;
-	color: lightsalmon;
+h1,
+h2,
+h3 {
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  color: lightsalmon;
 }
 
 table {
-	width: 100%;
+  width: 100%;
 	background-color: white;
 }
 
 th {
-	color: lightsalmon;
-	padding: 0px 7px;
+  color: lightsalmon;
+  padding: 0px 7px;
 }
 
 td {
-	padding: 2px 10px;
-	width: 200px;
-	text-align: center; 
-	vertical-align: middle;
+  padding: 2px 10px;
+  width: 200px;
+  text-align: center;
+  vertical-align: middle;
 }
 
-table, th, td {
-	border: 1px dotted lightskyblue;
+table,
+th,
+td {
+  border: 1px dotted lightskyblue;
 }
 
 select {
-	background-color: white;
-	color: lightskyblue;
-	outline: none;
-	border: none;
+  background-color: white;
+  color: lightskyblue;
+  outline: none;
+  border: none;
 }
 
 code {
-  padding: .25rem;
-  margin: 0 .25rem;
+  padding: 0.25rem;
+  margin: 0 0.25rem;
   background: #eee;
 }
 
@@ -59,11 +63,11 @@ code {
 }
 
 .pure-form input[type="text"] {
-	color: black;
+  color: black;
 }
 
 input {
-	color: black;
+  color: black;
 }
 
 ul {
@@ -81,7 +85,7 @@ ul li:not(:last-child) {
   position: fixed;
   padding: 5px;
   background: #0c1a2b;
-  font-family: 'Oswald', 'Arial Narrow', sans-serif;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
 }
 
 .navbar a {
@@ -113,7 +117,7 @@ ul li:not(:last-child) {
 .loading-screen {
   opacity: 1;
   visibility: visible;
-  transition: all .25s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 
 .loading-screen.loaded {
@@ -130,38 +134,47 @@ ul li:not(:last-child) {
 /* ALERTS */
 
 .alert {
-  padding: .5rem;
+  padding: 0.5rem;
   color: darkgreen;
   background: darkseagreen;
   border: 1px solid darkgreen;
 }
 
 .btn {
-	background-color: white; 
-	border: none; 
-	outline: none;
-	color: lightskyblue; 
-	font-size: 16px; 
-	cursor: pointer; 
+  background-color: white;
+  border: none;
+  outline: none;
+  color: lightskyblue;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 20%;
 }
 
 .pure-button {
-	background-color: white; 
-	color: lightskyblue; 
-	font-size: 16px; 
-	cursor: pointer;
-	background-image: none;
-	margin-top: 5px;
+  background-color: white;
+  color: lightskyblue;
+  font-size: 16px;
+  cursor: pointer;
+  background-image: none;
+  margin-top: 5px;
+  border-radius: 20%;
 }
 
 .pure-button:hover {
-	background-image: none;
+  background-image: none;
 }
 
 .pure-button:focus {
-	background-image: none;
+  background-image: none;
 }
 
 .right {
-	float: right;
+  float: right;
+}
+
+.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 200px;
 }

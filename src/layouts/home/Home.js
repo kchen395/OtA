@@ -22,7 +22,8 @@ class Home extends Component {
       total: null,
       type: "recent",
       account: null,
-      open: false
+			open: false,
+			done: false
     };
     this.contracts = context.drizzle.contracts;
     this.handleClick = this.handleClick.bind(this);
@@ -34,9 +35,9 @@ class Home extends Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
-  handleClick() {
-    this.setState({ length: this.state.length + 100 });
-    this.getData(this.state.type);
+  async handleClick() {
+		await this.setState({ length: this.state.length + 100 });
+		await this.getData(this.state.type);
   }
 
   handleChange(e) {
@@ -83,13 +84,16 @@ class Home extends Component {
   getData(type) {
     this.setState({ data: [] });
     let total = this.state.total;
-    let counter = 0;
 
     if (type === "recent") {
-      for (let i = total; i >= 0; i--) {
-        if (counter > this.state.length) break;
-        counter++;
-        dataHelper(this, i).catch(error => {
+      for (let i = this.state.length; i > 0; i--) {
+				dataHelper(this, total--)
+				.then(() => {
+					this.setState({
+						done: true
+					});
+				})
+				.catch(error => {
           console.log(error.message);
         });
       }
@@ -98,7 +102,8 @@ class Home extends Component {
         dataHelper(this, i)
           .then(() => {
             this.setState({
-              data: this.state.data.sort((a, b) => b.upvotes - a.upvotes)
+							data: this.state.data.sort((a, b) => b.upvotes - a.upvotes).slice(0, this.state.length),
+							done: true
             });
           })
           .catch(error => {

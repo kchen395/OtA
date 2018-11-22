@@ -14,7 +14,14 @@ export default class Gallery extends Component {
   }
 
   render() {
-    const { data, like, donate } = this.props;
+		const { data, like, donate } = this.props;
+		if (data.length < 4) {
+			return (
+				<div>
+					<img src="https://loading.io/spinners/ellipsis/lg.discuss-ellipsis-preloader.gif" alt="loading gif" className="center"/>
+				</div>
+			)
+		}
     return (
       <table>
         <thead>
