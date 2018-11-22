@@ -84,7 +84,7 @@ class Home extends Component {
       .call()
       .then(async total => {
         let accounts = await web3.eth.getAccounts();
-        this.setState({ total: total - 1, account: accounts[0] });
+        this.setState({ total: total - 2, account: accounts[0] });
         this.getData(this.state.type);
       })
       .catch(error => console.log(error.message));
@@ -122,6 +122,9 @@ class Home extends Component {
       .call()
       .then(bool => {
         if (bool) {
+          if (bool && this.state.vip === null) {
+            this.setState({ total: this.state.total + 1 });
+          }
           let nProm = this.contracts.TopArt.methods.getName(0).call();
           let tProm = this.contracts.TopArt.methods.getThumbnail(0).call();
           let lProm = this.contracts.TopArt.methods.getLink(0).call();
@@ -176,6 +179,22 @@ class Home extends Component {
     if (this.state.total === 0) {
       phrase = "Work";
     }
+    if (!this.state.done) {
+      return (
+        <main className="container">
+				        <div className="pure-g">
+          <div className="pure-u-1-1 header">
+            <h1>OtA</h1>
+            <p>Decentralized Art Gallery</p>
+						<div>
+					<img src="https://loading.io/spinners/ellipsis/lg.discuss-ellipsis-preloader.gif" alt="loading gif" className="center"/>
+				</div>
+
+          </div>
+</div>
+        </main>
+      );
+    }
     return (
       <main className="container">
         <div>
@@ -212,7 +231,7 @@ class Home extends Component {
 
           <div className="pure-u-1-1">
             <h2>Gallery</h2>
-						<br/>
+            <br />
 
             <div>
               <select onChange={this.handleChange}>
@@ -225,9 +244,8 @@ class Home extends Component {
               data={this.state.data}
               like={this.handleLike}
               donate={this.donate}
-              done={this.state.done}
             />
-						
+
             <br />
 
             <div>
@@ -235,11 +253,11 @@ class Home extends Component {
                 Show More
               </button>
             </div>
-						<div className="header">
-            <button onClick={this.openModal} className="pure-button">
-              Submit
-            </button>
-						</div>
+            <div className="header">
+              <button onClick={this.openModal} className="pure-button">
+                Submit
+              </button>
+            </div>
 
             <br />
             <br />

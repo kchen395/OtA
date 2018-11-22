@@ -28,14 +28,13 @@ class FeaturedWork extends Component {
   }
 
   render() {
-    const { vip, account, donate, web3 } = this.props;
+		const { vip, account, donate, web3 } = this.props;
     if (vip === null) {
       return (
         <div>
           <button onClick={this.openModal} className="pure-button">
             Replace
           </button>
-
           <Modal open={this.state.open} onClose={this.closeModal}>
             <h2>Replace</h2>
             <p>Replace the featured piece!</p>
@@ -72,6 +71,9 @@ class FeaturedWork extends Component {
 								height="auto"
 							/>
 						</a>
+					</div>
+					<div>
+						<p>{vip.description}</p>
 					</div>
 					<br />
 					<div>
