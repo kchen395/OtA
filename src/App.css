@@ -177,7 +177,6 @@ ul li:not(:last-child) {
 
 .smoke {
 	background-color: whitesmoke;
-	font-size: 30px;
 }
 
 .right {
@@ -203,6 +202,13 @@ ul li:not(:last-child) {
 	cursor: pointer;
 	margin-top: -9px;
 	padding: 0px 8px;
+	font-size: 30px;
+}
+
+.refresh {
+	padding: 0px;
+	font-size: 30px;
+	display: absolute;
 }
 
 .inline {
@@ -212,4 +218,13 @@ ul li:not(:last-child) {
 .send {
 	margin-left: 5px;
 	margin-top: -3px;
+}
+
+.loading {
+	font-size: 300px;
+}
+
+.loading2 {
+	font-size: 40px;
+	margin-bottom: 0px;
 }

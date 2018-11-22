@@ -40,10 +40,16 @@ class Home extends Component {
     this.dataHelper = this.dataHelper.bind(this);
 		this.vipCheck = this.vipCheck.bind(this);
 		this.toggle = this.toggle.bind(this);
+		this.refresh = this.refresh.bind(this)
   }
 
   async handleClick() {
     await this.setState({ length: this.state.length + 10, galleryDone: false });
+    await this.getData(this.state.type);
+	}
+	
+	async refresh() {
+    await this.setState({ done: false });
     await this.getData(this.state.type);
   }
 
@@ -57,12 +63,16 @@ class Home extends Component {
     this.setState({ vipCheck: true });
   }
 
-  handleLike(id) {
-    this.contracts.TopArt.methods
+  async handleLike(id) {
+    await this.setState({galleryDone: false });
+    await this.contracts.TopArt.methods
       .like(id)
       .send()
       .then(() => this.getData(this.state.type))
-      .catch(error => console.log(error.message));
+      .catch(error => {
+				console.log(error.message)
+				this.setState({galleryDone: true })
+			});
   }
 
   openModal() {
@@ -197,8 +207,8 @@ class Home extends Component {
         <main className="container">
           <div className="pure-g">
             <div className="pure-u-1-1 header">
-              <h1>OtA</h1>
-              <h4>Decentralized Art Gallery</h4>
+              <h1 className="loading">OtA</h1>
+              <h4 className="loading2">Decentralized Art Gallery</h4>
               <div>
                 <img
                   src="https://loading.io/spinners/ellipsis/lg.discuss-ellipsis-preloader.gif"
@@ -225,8 +235,8 @@ class Home extends Component {
             />
           </Modal>
         </div>
-
         <div className="pure-g">
+				<button onClick={this.refresh} className="pure-button smoke refresh"><i className="fas fa-redo"></i></button>
           <div className="pure-u-1-1 header">
             <h1>OtA</h1>
             <h4>Decentralized Art Gallery</h4>
@@ -253,7 +263,6 @@ class Home extends Component {
           <div className="pure-u-1-1">
             <h2>Gallery</h2>
             <br />
-
             <div>
               <select onChange={this.handleChange}>
                 <option value={"recent"}>Most Recent</option>
