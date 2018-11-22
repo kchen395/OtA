@@ -171,7 +171,13 @@ ul li:not(:last-child) {
 }
 
 .pure-button:focus {
-  background-image: none;
+	background-image: none;
+	outline: none;
+}
+
+.smoke {
+	background-color: whitesmoke;
+	font-size: 30px;
 }
 
 .right {
@@ -183,4 +189,24 @@ ul li:not(:last-child) {
 	margin-left: auto;
 	margin-right: auto;
 	width: 200px;
+}
+
+.title {
+	font-size: 50px;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	color: lightsalmon;
+}
+
+.toggle {
+	cursor: pointer;
+}
+
+.inline {
+	display: inline-block;
+}
+
+.send {
+	margin-left: 5px;
+	margin-top: -3px;
 }

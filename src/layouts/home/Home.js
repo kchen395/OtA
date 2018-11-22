@@ -25,7 +25,8 @@ class Home extends Component {
       account: null,
       open: false,
       done: false,
-      vip: null
+      vip: null,
+			toggle: true
     };
     this.contracts = context.drizzle.contracts;
     this.handleClick = this.handleClick.bind(this);
@@ -36,7 +37,8 @@ class Home extends Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.dataHelper = this.dataHelper.bind(this);
-    this.vipCheck = this.vipCheck.bind(this);
+		this.vipCheck = this.vipCheck.bind(this);
+		this.toggle = this.toggle.bind(this);
   }
 
   async handleClick() {
@@ -68,7 +70,11 @@ class Home extends Component {
 
   closeModal() {
     this.setState({ open: false });
-  }
+	}
+	
+	toggle() {
+		this.setState({toggle: !this.state.toggle})
+	}
 
   donate(receiver, amount) {
     web3.eth.sendTransaction({
@@ -93,11 +99,14 @@ class Home extends Component {
   getData(type) {
     this.setState({ data: [] });
     let total = this.state.total;
-    console.log(this.state.data);
     if (type === "recent") {
       (async () => {
-        let counter = await this.contracts.TopArt.methods.getCounter().call().then(count => count).catch(error => console.log(error.message));
-				for (let i = this.state.length; i > 0; i--) {
+        let counter = await this.contracts.TopArt.methods
+          .getCounter()
+          .call()
+          .then(count => count)
+          .catch(error => console.log(error.message));
+        for (let i = this.state.length; i > 0; i--) {
           if (counter === 0) break;
           await this.dataHelper(counter--);
         }
@@ -225,11 +234,13 @@ class Home extends Component {
 
           <div className="pure-u-1-1 header">
             <h2>Featured</h2>
+						<button onClick={this.toggle} className="toggle pure-button smoke">{this.state.toggle ? <i class="fa fa-toggle-on"></i> : <i class="fa fa-toggle-off"></i>}</button>
             <FeaturedWork
               vip={this.state.vip}
               account={this.state.account}
               donate={this.donate}
-              web3={web3}
+							web3={web3}
+							toggle={this.state.toggle}
             />
           </div>
 
