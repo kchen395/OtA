@@ -24,10 +24,10 @@ class Home extends Component {
       type: "recent",
       account: null,
       open: false,
-			done: false,
-			galleryDone: false,
+      done: false,
+      galleryDone: false,
       vip: null,
-			toggle: true
+      toggle: true
     };
     this.contracts = context.drizzle.contracts;
     this.handleClick = this.handleClick.bind(this);
@@ -38,17 +38,17 @@ class Home extends Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.dataHelper = this.dataHelper.bind(this);
-		this.vipCheck = this.vipCheck.bind(this);
-		this.toggle = this.toggle.bind(this);
-		this.refresh = this.refresh.bind(this)
+    this.vipCheck = this.vipCheck.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.refresh = this.refresh.bind(this);
   }
 
   async handleClick() {
     await this.setState({ length: this.state.length + 10, galleryDone: false });
     await this.getData(this.state.type);
-	}
-	
-	async refresh() {
+  }
+
+  async refresh() {
     await this.setState({ done: false });
     await this.getData(this.state.type);
   }
@@ -64,15 +64,15 @@ class Home extends Component {
   }
 
   async handleLike(id) {
-    await this.setState({galleryDone: false });
+    await this.setState({ galleryDone: false });
     await this.contracts.TopArt.methods
       .like(id)
       .send()
       .then(() => this.getData(this.state.type))
       .catch(error => {
-				console.log(error.message)
-				this.setState({galleryDone: true })
-			});
+        console.log(error.message);
+        this.setState({ galleryDone: true });
+      });
   }
 
   openModal() {
@@ -81,11 +81,11 @@ class Home extends Component {
 
   closeModal() {
     this.setState({ open: false });
-	}
-	
-	toggle() {
-		this.setState({toggle: !this.state.toggle})
-	}
+  }
+
+  toggle() {
+    this.setState({ toggle: !this.state.toggle });
+  }
 
   donate(receiver, amount) {
     web3.eth.sendTransaction({
@@ -101,7 +101,7 @@ class Home extends Component {
       .call()
       .then(async total => {
         let accounts = await web3.eth.getAccounts();
-        this.setState({ total: total - 2, account: accounts[0]});
+        this.setState({ total: total - 2, account: accounts[0] });
         this.getData(this.state.type);
       })
       .catch(error => console.log(error.message));
@@ -122,8 +122,8 @@ class Home extends Component {
           await this.dataHelper(counter--);
         }
         this.setState({
-					done: true,
-					galleryDone: true
+          done: true,
+          galleryDone: true
         });
       })();
     } else if (type === "popular") {
@@ -135,8 +135,8 @@ class Home extends Component {
           data: this.state.data
             .sort((a, b) => b.upvotes - a.upvotes)
             .slice(0, this.state.length),
-					done: true,
-					galleryDone: true
+          done: true,
+          galleryDone: true
         });
       })();
     }
@@ -236,7 +236,9 @@ class Home extends Component {
           </Modal>
         </div>
         <div className="pure-g">
-				<button onClick={this.refresh} className="pure-button smoke refresh"><i className="fas fa-redo"></i></button>
+          <button onClick={this.refresh} className="pure-button smoke refresh">
+            <i className="fas fa-redo" />
+          </button>
           <div className="pure-u-1-1 header">
             <h1>OtA</h1>
             <h4>Decentralized Art Gallery</h4>
@@ -246,22 +248,30 @@ class Home extends Component {
           </div>
 
           <div className="pure-u-1-1 header">
-					<div>
-					<h2 className="inline">Featured</h2>
-						<button onClick={this.toggle} className="toggle pure-button smoke inline">{this.state.toggle ? <i className="fa fa-toggle-on"></i> : <i className="fa fa-toggle-off"></i>}</button>
-
-					</div>
+            <div>
+              <h2 className="inline">Featured</h2>
+              <button
+                onClick={this.toggle}
+                className="toggle pure-button smoke inline"
+              >
+                {this.state.toggle ? (
+                  <i className="fa fa-toggle-on" />
+                ) : (
+                  <i className="fa fa-toggle-off" />
+                )}
+              </button>
+            </div>
             <FeaturedWork
               vip={this.state.vip}
               account={this.state.account}
               donate={this.donate}
-							web3={web3}
-							toggle={this.state.toggle}
+              web3={web3}
+              toggle={this.state.toggle}
             />
           </div>
 
           <div className="pure-u-1-1">
-            <h2>Gallery</h2>
+            <h2 className="title">Gallery</h2>
             <br />
             <div>
               <select onChange={this.handleChange}>
@@ -273,12 +283,10 @@ class Home extends Component {
             <Gallery
               data={this.state.data}
               like={this.handleLike}
-							donate={this.donate}
-							galleryDone={this.state.galleryDone}
+              donate={this.donate}
+              galleryDone={this.state.galleryDone}
             />
-
             <br />
-
             <div>
               <button onClick={this.handleClick} className="btn">
                 Show More
