@@ -43,7 +43,7 @@ class Home extends Component {
   }
 
   async handleClick() {
-    await this.setState({ length: this.state.length + 10 });
+    await this.setState({ length: this.state.length + 10, galleryDone: false });
     await this.getData(this.state.type);
   }
 
