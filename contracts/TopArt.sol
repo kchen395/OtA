@@ -22,7 +22,7 @@ contract TopArt {
 
   mapping (uint => Data) dataItems;
 	
-  bool vip = false; 
+  bool public vip = false; 
 
   uint public counter = 1;
 
@@ -82,10 +82,6 @@ contract TopArt {
 
   function getAddress(uint id) public view returns (address) {
     return (dataItems[id].addr);
-  }
-
-  function getVip() public view returns (bool) {
-    return vip;
   }
 
   function like(uint id) public returns (uint) {

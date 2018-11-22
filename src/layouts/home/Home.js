@@ -131,7 +131,7 @@ class Home extends Component {
       })();
     }
     this.contracts.TopArt.methods
-      .getVip()
+      .vip()
       .call()
       .then(bool => {
         if (bool) {
