@@ -24,7 +24,8 @@ class Home extends Component {
       type: "recent",
       account: null,
       open: false,
-      done: false,
+			done: false,
+			galleryDone: false,
       vip: null,
 			toggle: true
     };
@@ -48,7 +49,7 @@ class Home extends Component {
 
   async handleChange(e) {
     let val = e.target.value;
-    await this.setState({ type: val, done: false, length: 10 });
+    await this.setState({ type: val, length: 10, galleryDone: false });
     await this.getData(val);
   }
 
@@ -90,7 +91,7 @@ class Home extends Component {
       .call()
       .then(async total => {
         let accounts = await web3.eth.getAccounts();
-        this.setState({ total: total - 2, account: accounts[0] });
+        this.setState({ total: total - 2, account: accounts[0]});
         this.getData(this.state.type);
       })
       .catch(error => console.log(error.message));
@@ -111,7 +112,8 @@ class Home extends Component {
           await this.dataHelper(counter--);
         }
         this.setState({
-          done: true
+					done: true,
+					galleryDone: true
         });
       })();
     } else if (type === "popular") {
@@ -123,7 +125,8 @@ class Home extends Component {
           data: this.state.data
             .sort((a, b) => b.upvotes - a.upvotes)
             .slice(0, this.state.length),
-          done: true
+					done: true,
+					galleryDone: true
         });
       })();
     }
@@ -233,8 +236,11 @@ class Home extends Component {
           </div>
 
           <div className="pure-u-1-1 header">
-            <h2>Featured</h2>
-						<button onClick={this.toggle} className="toggle pure-button smoke">{this.state.toggle ? <i class="fa fa-toggle-on"></i> : <i class="fa fa-toggle-off"></i>}</button>
+					<div>
+					<h2 className="inline">Featured</h2>
+						<button onClick={this.toggle} className="toggle pure-button smoke inline">{this.state.toggle ? <i class="fa fa-toggle-on"></i> : <i class="fa fa-toggle-off"></i>}</button>
+
+					</div>
             <FeaturedWork
               vip={this.state.vip}
               account={this.state.account}
@@ -258,7 +264,8 @@ class Home extends Component {
             <Gallery
               data={this.state.data}
               like={this.handleLike}
-              donate={this.donate}
+							donate={this.donate}
+							galleryDone={this.state.galleryDone}
             />
 
             <br />

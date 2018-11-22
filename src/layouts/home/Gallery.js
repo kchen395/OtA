@@ -14,7 +14,18 @@ export default class Gallery extends Component {
   }
 
   render() {
-		const { data, like, donate } = this.props;
+    const { data, like, donate, galleryDone } = this.props;
+    if (!galleryDone) {
+      return (
+        <div>
+          <img
+            src="https://loading.io/spinners/flower/lg.peacock-flower-spinner.gif"
+            alt="loading gif"
+            className="center"
+          />
+        </div>
+      );
+    }
     return (
       <table>
         <thead>

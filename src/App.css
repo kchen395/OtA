@@ -4,7 +4,7 @@ body,
 .pure-g [class*="pure-u"] {
   font-family: "Open Sans", sans-serif;
   background: whitesmoke;
-  color: lightskyblue;
+	color: lightskyblue;
 }
 
 .header {
@@ -192,6 +192,7 @@ ul li:not(:last-child) {
 }
 
 .title {
+	font-family: "Oswald", "Arial Narrow", sans-serif;
 	font-size: 50px;
 	margin-top: 0px;
 	margin-bottom: 10px;
@@ -200,6 +201,8 @@ ul li:not(:last-child) {
 
 .toggle {
 	cursor: pointer;
+	margin-top: -9px;
+	padding: 0px 8px;
 }
 
 .inline {
