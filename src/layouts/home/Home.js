@@ -25,15 +25,7 @@ class Home extends Component {
       account: null,
       open: false,
       done: false,
-      vip: {
-        name: "Childish Gambino - Feels Like Summer",
-        thumbnail: "https://i.ytimg.com/vi/F1B9Fk_SgI0/maxresdefault.jpg",
-        link: "https://www.youtube.com/watch?v=F1B9Fk_SgI0",
-        description:
-          "Unique music video depicting recent rap stars and hip-hop icons",
-        address: "0x9C4C5497ba4EB915689bf4aF0A4C94980429Ec28",
-        id: -1
-      }
+      vip: null
     };
     this.contracts = context.drizzle.contracts;
     this.handleClick = this.handleClick.bind(this);
@@ -187,9 +179,6 @@ class Home extends Component {
     return (
       <main className="container">
         <div>
-          <button onClick={this.openModal} className="pure-button">
-            Submit
-          </button>
           <Modal open={this.state.open} onClose={this.closeModal}>
             <h2>Submit Form</h2>
             <p>Add your art to the Ethereum blockchain!</p>
@@ -223,6 +212,8 @@ class Home extends Component {
 
           <div className="pure-u-1-1">
             <h2>Gallery</h2>
+						<br/>
+
             <div>
               <select onChange={this.handleChange}>
                 <option value={"recent"}>Most Recent</option>
@@ -236,6 +227,7 @@ class Home extends Component {
               donate={this.donate}
               done={this.state.done}
             />
+						
             <br />
 
             <div>
@@ -243,6 +235,12 @@ class Home extends Component {
                 Show More
               </button>
             </div>
+						<div className="header">
+            <button onClick={this.openModal} className="pure-button">
+              Submit
+            </button>
+						</div>
+
             <br />
             <br />
           </div>
