@@ -87,7 +87,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.contracts.TopArt.methods
-      .getCounter()
+      .counter()
       .call()
       .then(async total => {
         let accounts = await web3.eth.getAccounts();
@@ -103,7 +103,7 @@ class Home extends Component {
     if (type === "recent") {
       (async () => {
         let counter = await this.contracts.TopArt.methods
-          .getCounter()
+          .counter()
           .call()
           .then(count => count)
           .catch(error => console.log(error.message));

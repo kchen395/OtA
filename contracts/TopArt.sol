@@ -43,7 +43,7 @@ contract TopArt {
   }
 
   function addVip(string name, string thumbnail, string link, string description) public payable {
-    require(msg.value == 1 ether,"Amount should be equal to 1 Ether");
+    require(msg.value == 1 ether, "Amount should be equal to 1 Ether");
     owner.transfer(1 ether);
     vip = true;
     uint upvotes = 0;
@@ -70,10 +70,6 @@ contract TopArt {
 
   function getLink(uint id) public view returns (string) {
     return (dataItems[id].link);
-  }
-
-  function getCounter() public view returns (uint) {
-    return counter;
   }
 
   function getDescription(uint id) public view returns (string) {
