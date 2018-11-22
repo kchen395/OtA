@@ -22,8 +22,8 @@ class Home extends Component {
       total: null,
       type: "recent",
       account: null,
-			open: false,
-			done: false
+      open: false,
+      done: false
     };
     this.contracts = context.drizzle.contracts;
     this.handleClick = this.handleClick.bind(this);
@@ -36,12 +36,12 @@ class Home extends Component {
   }
 
   async handleClick() {
-		await this.setState({ length: this.state.length + 100 });
-		await this.getData(this.state.type);
+    await this.setState({ length: this.state.length + 10 });
+    await this.getData(this.state.type);
   }
 
   handleChange(e) {
-    this.setState({ type: e.target.value });
+    this.setState({ type: e.target.value, done: false });
     this.getData(e.target.value);
   }
 
@@ -86,30 +86,26 @@ class Home extends Component {
     let total = this.state.total;
 
     if (type === "recent") {
-      for (let i = this.state.length; i > 0; i--) {
-				dataHelper(this, total--)
-				.then(() => {
-					this.setState({
-						done: true
-					});
-				})
-				.catch(error => {
-          console.log(error.message);
+			(async () => {
+        for (let i = total; i >= 0; i--) {
+          await dataHelper(this, i);
+        }
+        this.setState({
+          done: true
         });
-      }
+      })();
     } else if (type === "popular") {
-      for (let i = total; i >= 0; i--) {
-        dataHelper(this, i)
-          .then(() => {
-            this.setState({
-							data: this.state.data.sort((a, b) => b.upvotes - a.upvotes).slice(0, this.state.length),
-							done: true
-            });
-          })
-          .catch(error => {
-            console.log(error.message);
-          });
-      }
+      (async () => {
+        for (let i = total; i >= 0; i--) {
+          await dataHelper(this, i);
+        }
+        this.setState({
+          data: this.state.data
+            .sort((a, b) => b.upvotes - a.upvotes)
+            .slice(0, this.state.length),
+          done: true
+        });
+      })();
     }
   }
 
@@ -159,6 +155,7 @@ class Home extends Component {
               data={this.state.data}
               like={this.handleLike}
               donate={this.donate}
+              done={this.state.done}
             />
             <br />
 
