@@ -87,8 +87,8 @@ class Home extends Component {
 
     if (type === "recent") {
 			(async () => {
-        for (let i = total; i >= 0; i--) {
-          await dataHelper(this, i);
+        for (let i = this.state.length; i > 0; i--) {
+          await dataHelper(this, total--);
         }
         this.setState({
           done: true
