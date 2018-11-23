@@ -21,7 +21,7 @@ export default class Gallery extends Component {
           <img
             src="https://loading.io/spinners/flower/lg.peacock-flower-spinner.gif"
             alt="loading gif"
-            className="center"
+            className="load"
           />
         </div>
       );
@@ -57,7 +57,7 @@ export default class Gallery extends Component {
                   </td>
                   <td>{item.description}</td>
                   <td>
-                    <button className="btn" onClick={() => like(item.id)}>
+                    <button className="btn size" onClick={() => like(item.id)}>
                       <i className="fa fa-caret-up" />
                     </button>
                     <div>{item.upvotes}</div>

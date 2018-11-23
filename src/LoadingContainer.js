@@ -20,7 +20,7 @@ class LoadingContainer extends Component {
               <img
                 src="https://loading.io/spinners/ellipsis/lg.discuss-ellipsis-preloader.gif"
                 alt="loading gif"
-                className="center"
+                className="load"
               />
             </div>
           </div>

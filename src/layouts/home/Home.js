@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Gallery from "./Gallery.js";
+import GalleryView from "./GalleryView.js";
 import FeaturedWork from "./FeaturedWork.js";
 import ContractForm from "./ContractForm.js";
 import PropTypes from "prop-types";
@@ -27,7 +28,8 @@ class Home extends Component {
       done: false,
       galleryDone: false,
       vip: null,
-      toggle: true
+      toggle: true,
+      view: true
     };
     this.contracts = context.drizzle.contracts;
     this.handleClick = this.handleClick.bind(this);
@@ -35,12 +37,12 @@ class Home extends Component {
     this.handleLike = this.handleLike.bind(this);
     this.getData = this.getData.bind(this);
     this.donate = this.donate.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
     this.dataHelper = this.dataHelper.bind(this);
     this.vipCheck = this.vipCheck.bind(this);
     this.toggle = this.toggle.bind(this);
     this.refresh = this.refresh.bind(this);
+    this.handleView = this.handleView.bind(this);
   }
 
   async handleClick() {
@@ -59,6 +61,10 @@ class Home extends Component {
     await this.getData(val);
   }
 
+  handleView() {
+    this.setState({ view: !this.state.view });
+  }
+
   vipCheck() {
     this.setState({ vipCheck: true });
   }
@@ -75,12 +81,8 @@ class Home extends Component {
       });
   }
 
-  openModal() {
-    this.setState({ open: true });
-  }
-
-  closeModal() {
-    this.setState({ open: false });
+  toggleModal() {
+    this.setState({ open: !this.state.open });
   }
 
   toggle() {
@@ -213,7 +215,7 @@ class Home extends Component {
                 <img
                   src="https://loading.io/spinners/ellipsis/lg.discuss-ellipsis-preloader.gif"
                   alt="loading gif"
-                  className="center"
+                  className="load"
                 />
               </div>
             </div>
@@ -224,7 +226,7 @@ class Home extends Component {
     return (
       <main className="container">
         <div>
-          <Modal open={this.state.open} onClose={this.closeModal}>
+          <Modal open={this.state.open} onClose={this.toggleModal}>
             <h2>Submit Form</h2>
             <p>Add your art to the Ethereum blockchain!</p>
             <p>Your Account: {this.state.account}</p>
@@ -273,27 +275,50 @@ class Home extends Component {
           <div className="pure-u-1-1">
             <h2 className="title">Gallery</h2>
             <br />
-            <div>
-              <select onChange={this.handleChange}>
-                <option value={"recent"}>Most Recent</option>
-                <option value={"popular"}>Most Popular</option>
-              </select>
+            <div className="bottom">
+              <div className="inline">
+                <select onChange={this.handleChange}>
+                  <option value={"recent"}>Most Recent</option>
+                  <option value={"popular"}>Most Popular</option>
+                </select>
+              </div>
+              <div className="inline selector">
+                <select onChange={this.handleView}>
+                  <option value={"grid"}>Grid</option>
+                  <option value={"list"}>List</option>
+                </select>
+              </div>
             </div>
             <br />
-            <Gallery
-              data={this.state.data}
-              like={this.handleLike}
-              donate={this.donate}
-              galleryDone={this.state.galleryDone}
-            />
+            {this.state.view ? (
+              <div className="pure-u-1-1 header">
+                <GalleryView
+                  data={this.state.data}
+                  like={this.handleLike}
+                  donate={this.donate}
+                  galleryDone={this.state.galleryDone}
+                />
+              </div>
+            ) : (
+              <Gallery
+                data={this.state.data}
+                like={this.handleLike}
+                donate={this.donate}
+                galleryDone={this.state.galleryDone}
+              />
+            )}
+
             <br />
             <div>
-              <button onClick={this.handleClick} className="btn">
+              <button onClick={this.handleClick} className="btn button-border">
                 Show More
               </button>
             </div>
             <div className="header">
-              <button onClick={this.openModal} className="pure-button">
+              <button
+                onClick={this.toggleModal}
+                className="pure-button button-border"
+              >
                 Submit
               </button>
             </div>

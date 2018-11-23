@@ -10,17 +10,12 @@ class FeaturedWork extends Component {
       open: false,
       amount: null
     };
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.toggle = this.toggle.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
-  openModal() {
-    this.setState({ open: true });
-  }
-
-  closeModal() {
-    this.setState({ open: false });
+  toggle() {
+    this.setState({ open: !this.state.open });
   }
 
   onChange(e) {
@@ -32,10 +27,10 @@ class FeaturedWork extends Component {
     if (vip === null || !toggle) {
       return (
         <div>
-          <button onClick={this.openModal} className="pure-button">
+          <button onClick={this.toggle} className="pure-button">
             Replace
           </button>
-          <Modal open={this.state.open} onClose={this.closeModal}>
+          <Modal open={this.state.open} onClose={this.toggle}>
             <h2>Replace</h2>
             <p>Replace the featured piece!</p>
             <p>Your Account: {account}</p>
@@ -58,21 +53,20 @@ class FeaturedWork extends Component {
       return (
         <div>
           <p className="title">{vip.name}</p>
-          <div>
+          <div className="frame">
             <a href={vip.link}>
               <img
                 src={vip.thumbnail}
                 alt={"Featured"}
                 display="block"
-                width="70%"
-                height="auto"
+                width="100%"
+								height="auto"
+								className="featuredBorder"
               />
             </a>
+						<p className="des">{vip.description}</p>
           </div>
-          <div>
-            <p>{vip.description}</p>
-          </div>
-          <div>
+          <div className="top">
             <form className="inline">
               <input
                 type="number"
@@ -82,18 +76,18 @@ class FeaturedWork extends Component {
               />
             </form>
             <button
-              className="pure-button inline send"
+              className="pure-button inline send button-border"
               onClick={() => donate(vip.address, this.state.amount)}
             >
               Send Ether
             </button>
           </div>
 
-          <button onClick={this.openModal} className="pure-button">
+          <button onClick={this.toggle} className="pure-button button-border">
             Replace
           </button>
 
-          <Modal open={this.state.open} onClose={this.closeModal}>
+          <Modal open={this.state.open} onClose={this.toggle}>
             <h2>Replace</h2>
             <p>Replace the featured piece!</p>
             <p>Your Account: {account}</p>
