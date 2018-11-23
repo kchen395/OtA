@@ -3,7 +3,7 @@
 body,
 .pure-g [class*="pure-u"] {
   font-family: "Open Sans", sans-serif;
-  background: whitesmoke;
+  background: white;
   color: lightskyblue;
 }
 
@@ -54,7 +54,8 @@ select {
   background-color: white;
   color: lightskyblue;
   outline: none;
-  border: none;
+	border: none;
+	border: 1px solid lightskyblue;
 }
 
 code {
@@ -208,7 +209,7 @@ ul li:not(:last-child) {
 }
 
 .smoke {
-  background-color: whitesmoke;
+  background-color: white;
 }
 
 .right {
@@ -299,19 +300,12 @@ ul li:not(:last-child) {
   width: 300px;
 }
 
-.pcolor {
-  background-color: white;
-  text-align: left;
-  border-style: solid;
-  border-width: 1px;
-  padding-left: 10px;
-}
-
 .des {
   position: absolute;
   text-align: center;
   bottom: 0px;
-  width: 100%;
+	width: 100%;
+	color: lightsalmon;
 }
 
 .width {
@@ -327,12 +321,12 @@ ul li:not(:last-child) {
 }
 
 .featuredBorder {
-  border: 10px solid #fff;
-  border-bottom: 45px solid #fff;
+  border: 10px solid whitesmoke;
+  border-bottom: 45px solid whitesmoke;
 }
 
 .frame {
-  position: relative;
+	position: relative;
 }
 
 .top {
