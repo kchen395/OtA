@@ -284,8 +284,8 @@ class Home extends Component {
               </div>
               <div className="inline selector">
                 <select onChange={this.handleView}>
-                  <option value={"grid"}>Grid</option>
-                  <option value={"list"}>List</option>
+                  <option>List</option>
+                  <option>Grid</option>
                 </select>
               </div>
             </div>
