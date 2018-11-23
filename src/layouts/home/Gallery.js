@@ -28,15 +28,6 @@ export default class Gallery extends Component {
     }
     return (
       <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Work</th>
-            <th>Description</th>
-            <th>Upvotes</th>
-            <th>Support Artist</th>
-          </tr>
-        </thead>
         <tbody>
           {data
             .filter(item => item.name)

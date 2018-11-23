@@ -233,7 +233,7 @@ class Home extends Component {
             <ContractForm
               contract="TopArt"
               method="add"
-              labels={["title", "thumbnail url", "link url", "description"]}
+              labels={["title", "thumbnail url", "link url", "caption"]}
             />
           </Modal>
         </div>

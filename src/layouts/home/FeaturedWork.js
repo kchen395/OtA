@@ -24,29 +24,33 @@ class FeaturedWork extends Component {
 
   render() {
     const { vip, account, donate, web3, toggle } = this.props;
+    const modal = (
+      <Modal open={this.state.open} onClose={this.toggle}>
+        <h2>Replace</h2>
+        <p>Replace the featured piece!</p>
+        <p>Your Account: {account}</p>
+        <ContractForm
+          contract="TopArt"
+          method="addVip"
+          labels={["title", "thumbnail url", "link url", "caption"]}
+          methodArgs={[
+            {
+              from: account,
+              value: web3.utils.toWei("1", "ether"),
+              data: "Test"
+            }
+          ]}
+        />
+      </Modal>
+    );
+
     if (vip === null || !toggle) {
       return (
         <div>
-          <button onClick={this.toggle} className="pure-button">
+          <button onClick={this.toggle} className="pure-button button-border">
             Replace
           </button>
-          <Modal open={this.state.open} onClose={this.toggle}>
-            <h2>Replace</h2>
-            <p>Replace the featured piece!</p>
-            <p>Your Account: {account}</p>
-            <ContractForm
-              contract="TopArt"
-              method="addVip"
-              labels={["title", "thumbnail url", "link url", "description"]}
-              methodArgs={[
-                {
-                  from: account,
-                  value: web3.utils.toWei("1", "ether"),
-                  data: "Test"
-                }
-              ]}
-            />
-          </Modal>
+          {modal}{" "}
         </div>
       );
     } else {
@@ -60,11 +64,11 @@ class FeaturedWork extends Component {
                 alt={"Featured"}
                 display="block"
                 width="100%"
-								height="auto"
-								className="featuredBorder"
+                height="auto"
+                className="featuredBorder"
               />
             </a>
-						<p className="des">{vip.description}</p>
+            <p className="des">{vip.description}</p>
           </div>
           <div className="top">
             <form className="inline">
@@ -87,23 +91,7 @@ class FeaturedWork extends Component {
             Replace
           </button>
 
-          <Modal open={this.state.open} onClose={this.toggle}>
-            <h2>Replace</h2>
-            <p>Replace the featured piece!</p>
-            <p>Your Account: {account}</p>
-            <ContractForm
-              contract="TopArt"
-              method="addVip"
-              labels={["title", "thumbnail url", "link url", "description"]}
-              methodArgs={[
-                {
-                  from: account,
-                  value: web3.utils.toWei("1", "ether"),
-                  data: "Test"
-                }
-              ]}
-            />
-          </Modal>
+          {modal}
         </div>
       );
     }
