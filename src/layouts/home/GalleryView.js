@@ -14,12 +14,12 @@ export default class GalleryView extends Component {
   }
 
   render() {
-    const { data, like, donate, galleryDone } = this.props;
+    const { data, like, donate, galleryDone, dark } = this.props;
     if (!galleryDone) {
       return (
         <div>
           <img
-            src="https://loading.io/spinners/flower/lg.peacock-flower-spinner.gif"
+            src={dark ? "https://imgur.com/AlDhHVy.gif" : "https://loading.io/spinners/flower/lg.peacock-flower-spinner.gif"}
             alt="loading gif"
             className="load"
           />
@@ -30,39 +30,57 @@ export default class GalleryView extends Component {
       <div className="center width">
         {data
           .filter(item => item.name)
-          .map(item => {
+          .map((item, i) => {
             return (
-              <main className="bottom2">
-                <p className="title2">{item.name}</p>
+              <main className="bottom2" key={i}>
+                <p className={dark ? "title2 dark-h" : "title 2"}>
+                  {item.name}
+                </p>
                 <div className="frame">
                   <a href={item.link}>
                     <img
                       src={item.thumbnail}
                       alt={"Featured"}
                       display="block"
-                      width="100%"
+                      width="90%"
                       height="auto"
-                      className="inline featuredBorder"
+                      className={
+                        dark ? "featuredBorder inline dark-b" : "featuredBorder"
+                      }
                     />
                   </a>
-                  <p className="des">{item.description}</p>
+                  <p className={dark ? "des dark-h" : "des"}>
+                    {item.description}
+                  </p>
                 </div>
                 <table className="listTable smoke">
-                  <tr className="white">
-                    <td>
+                  <tbody>
+									<tr className="white">
+                    <td className={dark ? "dark-tt dark-ttt" : ""}>
                       <div className="up">
                         <button
-                          className="btn button-border size"
+                          className={
+                            dark
+                              ? "btn button-border size dark-tt"
+                              : "btn button-border size"
+                          }
                           onClick={() => like(item.id)}
                         >
-                          <i className="fa fa-caret-up" />
+                          <i
+                            className={
+                              dark ? "fa fa-caret-up dark-h" : "fa fa-caret-up"
+                            }
+                          />
                         </button>
-                        <div>{item.upvotes}</div>
+                        <div className={dark ? "dark-h" : ""}>
+                          {item.upvotes}
+                        </div>
                       </div>
                     </td>
-                    <td>
+                    <td className={dark ? "dark-tt dark-ttt" : ""}>
                       <form>
                         <input
+                          className={dark ? "dark-input" : ""}
                           type="number"
                           min="0"
                           step="0.01"
@@ -70,13 +88,18 @@ export default class GalleryView extends Component {
                         />
                       </form>
                       <button
-                        className="pure-button button-border"
+                        className={
+                          dark
+                            ? "pure-button button-border dark-tt dark-h"
+                            : "pure-button button-border"
+                        }
                         onClick={() => donate(item.address, this.state.amount)}
                       >
                         Send Ether
                       </button>
                     </td>
                   </tr>
+									</tbody>
                 </table>
               </main>
             );

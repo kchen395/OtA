@@ -3,12 +3,19 @@
 body,
 .pure-g [class*="pure-u"] {
   font-family: "Open Sans", sans-serif;
-  background: white;
   color: lightskyblue;
 }
 
 .header {
   text-align: center;
+}
+
+.light {
+  background-color: white;
+}
+
+.b-color {
+	background-color: lightgrey;
 }
 
 h1,
@@ -47,17 +54,17 @@ td {
   border-style: solid;
   border-color: lightskyblue;
   border-width: 1px;
-	padding: 15px;
-	color: white;
-	background-color: lightskyblue
+  padding: 15px;
+  color: white;
+  background-color: lightskyblue;
 }
 
 select {
   background-color: white;
   color: lightskyblue;
   outline: none;
-	border: none;
-	border: 1px solid lightskyblue;
+  border: none;
+  border: 1px solid lightskyblue;
 }
 
 code {
@@ -74,12 +81,26 @@ code {
   margin: 0 auto;
 }
 
+.container2 {
+  box-sizing: border-box;
+  width: calc(100% - 60px);
+  max-width: 1200px;
+	padding: 25px 20px;
+	margin: 0 auto;
+}
+
 .pure-form input[type="text"] {
   color: black;
 }
 
 input {
   color: black;
+}
+
+.dark-input {
+	color: white;
+	background-color: #474B4F;
+	border-color: #c5c6c7;
 }
 
 ul {
@@ -179,12 +200,11 @@ ul li:not(:last-child) {
 }
 
 .up {
-	transform: translateY(-7px)
+  transform: translateY(-7px);
 }
 
 .pure-button {
   background-color: white;
-  color: lightskyblue;
   font-size: 16px;
   cursor: pointer;
   margin-top: 5px;
@@ -214,7 +234,7 @@ ul li:not(:last-child) {
 }
 
 .right {
-  float: right;
+  margin-left:auto; margin-right:0;
 }
 
 .center {
@@ -227,7 +247,9 @@ ul li:not(:last-child) {
 .load {
   display: block;
   margin-left: auto;
-  margin-right: auto;
+	margin-right: auto;
+	margin-top: 0;
+	margin-bottom: 100vw;
   width: 200px;
 }
 
@@ -256,7 +278,7 @@ ul li:not(:last-child) {
 }
 
 .refresh {
-  padding: 0px;
+  padding: 20px;
   font-size: 30px;
   display: absolute;
 }
@@ -292,17 +314,16 @@ ul li:not(:last-child) {
 }
 
 .listTable {
-	width: 100%;
-	transform: translate(10px, 10px);
-
+  width: 100%;
+	transform: translate(0px, 10px);
 }
 
 .des {
   position: absolute;
   text-align: center;
   bottom: 0px;
-	width: 100%;
-	color: lightsalmon;
+  width: 100%;
+  color: lightsalmon;
 }
 
 .width {
@@ -323,9 +344,50 @@ ul li:not(:last-child) {
 }
 
 .frame {
-	position: relative;
+  position: relative;
 }
 
 .top {
   padding-top: 10px;
+}
+
+.dark {
+  background-color: #1f2833;
+  border: none;
+}
+
+.black{
+	color: #1f2833;
+}
+
+.dark-h {
+  color: #45a29e;
+}
+
+.dark-t {
+  color: #c5c6c7;
+}
+
+.dark-tt {
+  background-color: #474B4F;
+}
+
+.dark-ttt {
+  border-color: #474B4F;
+}
+
+.dark-b {
+  border-color: #474B4F;
+}
+
+.light-blue {
+  color: lightskyblue;
+}
+
+.lbb {
+  background-color: lightskyblue;
+}
+
+.table-width {
+	width: 200px;
 }

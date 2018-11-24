@@ -24,7 +24,8 @@ class Home extends Component {
       galleryDone: false,
       vip: null,
       toggle: true,
-      view: true
+      view: true,
+      dark: false
     };
     this.contracts = context.drizzle.contracts;
     this.handleClick = this.handleClick.bind(this);
@@ -38,6 +39,7 @@ class Home extends Component {
     this.toggle = this.toggle.bind(this);
     this.refresh = this.refresh.bind(this);
     this.handleView = this.handleView.bind(this);
+    this.toggleDark = this.toggleDark.bind(this);
   }
 
   async handleClick() {
@@ -78,6 +80,10 @@ class Home extends Component {
 
   toggleModal() {
     this.setState({ open: !this.state.open });
+  }
+
+  toggleDark() {
+    this.setState({ dark: !this.state.dark });
   }
 
   toggle() {
@@ -173,14 +179,14 @@ class Home extends Component {
             }
           );
         } else {
-					this.contracts.TopArt.methods
-					.counter()
-					.call()
-					.then(total => {
-						this.setState({ total: total - 2 });
-					})
-					.catch(error => console.log(error.message));
-				}
+          this.contracts.TopArt.methods
+            .counter()
+            .call()
+            .then(total => {
+              this.setState({ total: total - 2 });
+            })
+            .catch(error => console.log(error.message));
+        }
       });
   }
 
@@ -216,14 +222,16 @@ class Home extends Component {
     }
     if (!this.state.done) {
       return (
-        <main className="container">
+        <main
+          className={this.state.dark ? "container2 dark" : "container light"}
+        >
           <div className="pure-g">
             <div className="pure-u-1-1 header">
-              <h1 className="loading">OtA</h1>
-              <h4 className="loading2">Decentralized Art Gallery</h4>
+              <h1 className={this.state.dark ? "loading dark-h" : "loading"}>OtA</h1>
+              <h4 className={this.state.dark ? "loading2 dark-t" : "loading2"}>Decentralized Art Gallery</h4>
               <div>
                 <img
-                  src="https://loading.io/spinners/ellipsis/lg.discuss-ellipsis-preloader.gif"
+                  src={this.state.dark ? "https://i.imgur.com/PPC6eK8.gif" : "https://loading.io/spinners/ellipsis/lg.discuss-ellipsis-preloader.gif"}
                   alt="loading gif"
                   className="load"
                 />
@@ -234,12 +242,16 @@ class Home extends Component {
       );
     }
     return (
-      <main className="container">
-        <div>
+      <main className={this.state.dark ? "container dark" : "container light"}>
+        <div className={this.state.dark ? "dark-t" : ""}>
           <Modal open={this.state.open} onClose={this.toggleModal}>
-            <h2>Submit Form</h2>
-            <p>Add your art to the Ethereum blockchain!</p>
-            <p>Your Account: {this.state.account}</p>
+            <h2 className={this.state.dark ? "dark-h" : ""}>Submit Form</h2>
+            <p className={this.state.dark ? "dark-t" : ""}>
+              Add your art to the Ethereum blockchain!
+            </p>
+            <p className={this.state.dark ? "dark-t" : ""}>
+              Your Account: {this.state.account}
+            </p>
             <ContractForm
               contract="TopArt"
               method="add"
@@ -247,24 +259,55 @@ class Home extends Component {
             />
           </Modal>
         </div>
-        <div className="pure-g">
-          <button onClick={this.refresh} className="pure-button smoke refresh">
+        <div className={"pure-g " + (this.state.dark ? "dark" : "")}>
+          <button
+            onClick={this.refresh}
+            className={
+              this.state.dark
+                ? "pure-button smoke refresh dark dark-t"
+                : "pure-button smoke refresh light-blue"
+            }
+          >
             <i className="fas fa-redo" />
           </button>
-          <div className="pure-u-1-1 header">
-            <h1>OtA</h1>
-            <h4>Decentralized Art Gallery</h4>
-            <h4>
+          <button
+            onClick={this.toggleDark}
+            className={
+              this.state.dark
+                ? "pure-button smoke refresh right dark dark-t"
+                : "pure-button smoke refresh right light-blue"
+            }
+          >
+            {this.state.dark ? (
+              <i className="fas fa-moon" />
+            ) : (
+              <i className="far fa-moon" />
+            )}{" "}
+          </button>
+          <div
+            className={"pure-u-1-1 header " + (this.state.dark ? "dark" : "")}
+          >
+            <h1 className={this.state.dark ? "dark-h" : ""}>OtA</h1>
+            <h4 className={this.state.dark ? "dark-t" : ""}>
+              Decentralized Art Gallery
+            </h4>
+            <h4 className={this.state.dark ? "dark-t" : ""}>
               Ethereum Storing {this.state.total + 1} {phrase} of Art
             </h4>
           </div>
 
           <div className="pure-u-1-1 header">
             <div>
-              <h2 className="inline">Featured</h2>
+              <h2 className={"inline " + (this.state.dark ? "dark-h" : "")}>
+                Featured
+              </h2>
               <button
                 onClick={this.toggle}
-                className="toggle pure-button smoke inline"
+                className={
+                  this.state.dark
+                    ? "toggle pure-button smoke inline dark dark-t"
+                    : "toggle pure-button smoke inline light-blue"
+                }
               >
                 {this.state.toggle ? (
                   <i className="fa fa-toggle-on" />
@@ -279,21 +322,30 @@ class Home extends Component {
               donate={this.donate}
               web3={web3}
               toggle={this.state.toggle}
+              dark={this.state.dark}
             />
           </div>
 
           <div className="pure-u-1-1">
-            <h2 className="title">Gallery</h2>
+            <h2 className={this.state.dark ? "title dark-h" : "title"}>
+              Gallery
+            </h2>
             <br />
             <div className="bottom">
               <div className="inline">
-                <select onChange={this.handleChange}>
+                <select
+                  onChange={this.handleChange}
+                  className={this.state.dark ? "dark-input" : ""}
+                >
                   <option value={"recent"}>Most Recent</option>
                   <option value={"popular"}>Most Popular</option>
                 </select>
               </div>
               <div className="inline selector">
-                <select onChange={this.handleView}>
+                <select
+                  onChange={this.handleView}
+                  className={this.state.dark ? "dark-input" : ""}
+                >
                   <option>List</option>
                   <option>Grid</option>
                 </select>
@@ -307,6 +359,7 @@ class Home extends Component {
                   like={this.handleLike}
                   donate={this.donate}
                   galleryDone={this.state.galleryDone}
+                  dark={this.state.dark}
                 />
               </div>
             ) : (
@@ -315,19 +368,31 @@ class Home extends Component {
                 like={this.handleLike}
                 donate={this.donate}
                 galleryDone={this.state.galleryDone}
+                dark={this.state.dark}
               />
             )}
 
             <br />
             <div>
-              <button onClick={this.handleClick} className="btn button-border">
+              <button
+                onClick={this.handleClick}
+                className={
+                  this.state.dark
+                    ? "btn button-border dark-h dark-tt"
+                    : "btn button-border"
+                }
+              >
                 Show More
               </button>
             </div>
             <div className="header">
               <button
                 onClick={this.toggleModal}
-                className="pure-button button-border"
+                className={
+                  this.state.dark
+                    ? "pure-button button-border dark-h dark-tt"
+                    : "pure-button button-border"
+                }
               >
                 Submit
               </button>

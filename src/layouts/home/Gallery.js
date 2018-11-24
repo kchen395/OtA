@@ -14,12 +14,12 @@ export default class Gallery extends Component {
   }
 
   render() {
-    const { data, like, donate, galleryDone } = this.props;
+    const { data, like, donate, galleryDone, dark } = this.props;
     if (!galleryDone) {
       return (
         <div>
           <img
-            src="https://loading.io/spinners/flower/lg.peacock-flower-spinner.gif"
+            src={dark ? "https://i.imgur.com/AlDhHVy.gif" : "https://loading.io/spinners/flower/lg.peacock-flower-spinner.gif"}
             alt="loading gif"
             className="load"
           />
@@ -27,15 +27,15 @@ export default class Gallery extends Component {
       );
     }
     return (
-      <table>
+      <table >
         <tbody>
           {data
             .filter(item => item.name)
             .map((item, i) => {
               return (
                 <tr key={i}>
-                  <td>{item.name}</td>
-                  <td>
+                  <td className={dark ? "dark-h dark-tt dark-ttt" : ""}>{item.name}</td>
+                  <td className={dark ? "dark-h dark-tt dark-ttt" : ""}>
                     <a href={item.link}>
                       <img
                         src={item.thumbnail}
@@ -46,11 +46,11 @@ export default class Gallery extends Component {
                       />
                     </a>
                   </td>
-                  <td>{item.description}</td>
-                  <td>
+                  <td className={dark ? "dark-h dark-tt dark-ttt" : ""}>{item.description}</td>
+                  <td className={dark ? "dark-h dark-tt dark-ttt" : ""}>
                     <div className="up">
                       <button
-                        className="btn size button-border"
+                        className={dark ? "btn size button-border dark-tt dark-h" : "btn size button-border"}
                         onClick={() => like(item.id)}
                       >
                         <i className="fa fa-caret-up" />
@@ -58,17 +58,18 @@ export default class Gallery extends Component {
                       <div>{item.upvotes}</div>
                     </div>
                   </td>
-                  <td>
+                  <td className={dark ? "dark-h dark-tt dark-ttt" : ""}>
                     <form>
                       <input
                         type="number"
                         min="0"
                         step="0.01"
-                        onChange={this.onChange}
+												onChange={this.onChange}
+												className={dark ? "dark-input" : ""}
                       />
                     </form>
                     <button
-                      className="pure-button button-border"
+                      className={dark ? "pure-button button-border dark-h dark-tt" : "pure-button button-border lbb"}
                       onClick={() => donate(item.address, this.state.amount)}
                     >
                       Send Ether
