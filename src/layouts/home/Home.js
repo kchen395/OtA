@@ -4,15 +4,10 @@ import GalleryView from "./GalleryView.js";
 import FeaturedWork from "./FeaturedWork.js";
 import ContractForm from "./ContractForm.js";
 import PropTypes from "prop-types";
-import Web3 from "web3";
+import getWeb3 from "../../util/web3/getWeb3.js";
 import Modal from "react-responsive-modal";
 
 let web3;
-if (!window.web3) {
-  web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-} else {
-  web3 = new Web3(window.web3.currentProvider);
-}
 
 class Home extends Component {
   constructor(props, context) {
@@ -97,8 +92,11 @@ class Home extends Component {
     });
   }
 
-  componentDidMount() {
-    this.contracts.TopArt.methods
+  async componentDidMount() {
+    await getWeb3.then(res => {
+      web3 = res.payload.web3Instance;
+    });
+    await this.contracts.TopArt.methods
       .counter()
       .call()
       .then(async total => {
@@ -147,9 +145,13 @@ class Home extends Component {
       .call()
       .then(bool => {
         if (bool) {
-          if (bool && this.state.vip === null) {
-            this.setState({ total: this.state.total + 1 });
-          }
+          this.contracts.TopArt.methods
+            .counter()
+            .call()
+            .then(total => {
+              this.setState({ total: total - 1 });
+            })
+            .catch(error => console.log(error.message));
           let nProm = this.contracts.TopArt.methods.getName(0).call();
           let tProm = this.contracts.TopArt.methods.getThumbnail(0).call();
           let lProm = this.contracts.TopArt.methods.getLink(0).call();
@@ -170,7 +172,15 @@ class Home extends Component {
               });
             }
           );
-        }
+        } else {
+					this.contracts.TopArt.methods
+					.counter()
+					.call()
+					.then(total => {
+						this.setState({ total: total - 2 });
+					})
+					.catch(error => console.log(error.message));
+				}
       });
   }
 

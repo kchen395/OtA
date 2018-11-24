@@ -45,20 +45,20 @@ export default class GalleryView extends Component {
                       className="inline featuredBorder"
                     />
                   </a>
-									<p className="des">{item.description}</p>
+                  <p className="des">{item.description}</p>
                 </div>
-                <div>
-                </div>
-                <table className="listTable center2 no smoke">
-                    <tr className="white">
-										<td>
-                      <button
-                        className="btn size"
-                        onClick={() => like(item.id)}
-                      >
-                        <i className="fa fa-caret-up" />
-                      </button>
-                      <div>{item.upvotes}</div>
+                <table className="listTable smoke">
+                  <tr className="white">
+                    <td>
+                      <div className="up">
+                        <button
+                          className="btn button-border size"
+                          onClick={() => like(item.id)}
+                        >
+                          <i className="fa fa-caret-up" />
+                        </button>
+                        <div>{item.upvotes}</div>
+                      </div>
                     </td>
                     <td>
                       <form>
@@ -70,13 +70,13 @@ export default class GalleryView extends Component {
                         />
                       </form>
                       <button
-                        className="pure-button"
+                        className="pure-button button-border"
                         onClick={() => donate(item.address, this.state.amount)}
                       >
                         Send Ether
                       </button>
                     </td>
-										</tr>
+                  </tr>
                 </table>
               </main>
             );

@@ -48,10 +48,15 @@ export default class Gallery extends Component {
                   </td>
                   <td>{item.description}</td>
                   <td>
-                    <button className="btn size" onClick={() => like(item.id)}>
-                      <i className="fa fa-caret-up" />
-                    </button>
-                    <div>{item.upvotes}</div>
+                    <div className="up">
+                      <button
+                        className="btn size button-border"
+                        onClick={() => like(item.id)}
+                      >
+                        <i className="fa fa-caret-up" />
+                      </button>
+                      <div>{item.upvotes}</div>
+                    </div>
                   </td>
                   <td>
                     <form>
@@ -63,7 +68,7 @@ export default class Gallery extends Component {
                       />
                     </form>
                     <button
-                      className="pure-button"
+                      className="pure-button button-border"
                       onClick={() => donate(item.address, this.state.amount)}
                     >
                       Send Ether

@@ -47,7 +47,9 @@ td {
   border-style: solid;
   border-color: lightskyblue;
   border-width: 1px;
-  padding: 15px;
+	padding: 15px;
+	color: white;
+	background-color: lightskyblue
 }
 
 select {
@@ -177,8 +179,7 @@ ul li:not(:last-child) {
 }
 
 .up {
-  background-color: white;
-  transform: translate(100px, 11px);
+	transform: translateY(-7px)
 }
 
 .pure-button {
@@ -228,12 +229,6 @@ ul li:not(:last-child) {
   margin-left: auto;
   margin-right: auto;
   width: 200px;
-}
-
-.center2 {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .title {
@@ -297,7 +292,9 @@ ul li:not(:last-child) {
 }
 
 .listTable {
-  width: 300px;
+	width: 100%;
+	transform: translate(10px, 10px);
+
 }
 
 .des {
@@ -317,7 +314,7 @@ ul li:not(:last-child) {
 }
 
 .white {
-  background-color: white;
+  width: 70%;
 }
 
 .featuredBorder {
