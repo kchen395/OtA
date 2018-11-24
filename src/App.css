@@ -396,3 +396,9 @@ ul li:not(:last-child) {
 .table-width {
 	width: 200px;
 }
+
+.no-padding {
+	padding: 0px;
+	border: 19.5px solid #1f2833;
+	background-color: #1f2833;
+}

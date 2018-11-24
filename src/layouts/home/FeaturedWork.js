@@ -25,7 +25,11 @@ class FeaturedWork extends Component {
   render() {
     const { vip, account, donate, web3, toggle, dark } = this.props;
     const modal = (
-      <Modal open={this.state.open} onClose={this.toggle}>
+      <Modal
+        open={this.state.open}
+        onClose={this.toggle}
+        classNames={{ modal: dark ? "no-padding" : "" }}
+      >
         <h2 className={dark ? "dark-h" : ""}>Replace</h2>
         <p className={dark ? "dark-t" : ""}>Replace the featured piece!</p>
         <p className={dark ? "dark-t" : ""}>Your Account: {account}</p>
@@ -47,7 +51,14 @@ class FeaturedWork extends Component {
     if (vip === null || !toggle) {
       return (
         <div>
-          <button onClick={this.toggle} className={dark ? "pure-button button-border dark-h dark-tt" : "pure-button button-border"}>
+          <button
+            onClick={this.toggle}
+            className={
+              dark
+                ? "pure-button button-border dark-h dark-tt"
+                : "pure-button button-border"
+            }
+          >
             Replace
           </button>
           {modal}{" "}
@@ -56,9 +67,7 @@ class FeaturedWork extends Component {
     } else {
       return (
         <div>
-          <p className={dark ? "title dark-h" : "title"}>
-            {vip.name}
-          </p>
+          <p className={dark ? "title dark-h" : "title"}>{vip.name}</p>
           <div className="frame">
             <a href={vip.link}>
               <img
@@ -67,7 +76,7 @@ class FeaturedWork extends Component {
                 display="block"
                 width="90%"
                 height="auto"
-								className={dark ? "featuredBorder dark-b" : "featuredBorder"}
+                className={dark ? "featuredBorder dark-b" : "featuredBorder"}
               />
             </a>
             <p className={dark ? "des dark-h" : "des"}>{vip.description}</p>
@@ -75,7 +84,7 @@ class FeaturedWork extends Component {
           <div className="top">
             <form className="inline">
               <input
-								className={dark ? "dark-input" : ""}
+                className={dark ? "dark-input" : ""}
                 type="number"
                 min="0"
                 step="0.01"
@@ -83,14 +92,25 @@ class FeaturedWork extends Component {
               />
             </form>
             <button
-							className={dark ? "pure-button inline send button-border dark-h dark-tt" : "pure-button inline send button-border"}
+              className={
+                dark
+                  ? "pure-button inline send button-border dark-h dark-tt"
+                  : "pure-button inline send button-border"
+              }
               onClick={() => donate(vip.address, this.state.amount)}
             >
               Send Ether
             </button>
           </div>
 
-          <button onClick={this.toggle} className={dark ? "pure-button button-border dark-h dark-tt" : "pure-button button-border"}>
+          <button
+            onClick={this.toggle}
+            className={
+              dark
+                ? "pure-button button-border dark-h dark-tt"
+                : "pure-button button-border"
+            }
+          >
             Replace
           </button>
 

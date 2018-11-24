@@ -244,8 +244,10 @@ class Home extends Component {
     return (
       <main className={this.state.dark ? "container dark" : "container light"}>
         <div className={this.state.dark ? "dark-t" : ""}>
-          <Modal open={this.state.open} onClose={this.toggleModal}>
-            <h2 className={this.state.dark ? "dark-h" : ""}>Submit Form</h2>
+          <Modal open={this.state.open} onClose={this.toggleModal} classNames={
+						{modal: this.state.dark ? "no-padding" : ""}
+					}>
+						<h2 className={this.state.dark ? "dark-h" : ""}>Submit Form</h2>
             <p className={this.state.dark ? "dark-t" : ""}>
               Add your art to the Ethereum blockchain!
             </p>
