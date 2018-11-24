@@ -14,8 +14,7 @@ class LoadingContainer extends Component {
       <main className="container">
         <div className="pure-g">
           <div className="pure-u-1-1 header">
-            <h1 className="loading">OtA</h1>
-            <h4 className="loading2">Decentralized Art Gallery</h4>
+            <h1 className="loading3">Connecting to Ethereum</h1>
             <div>
               <img
                 src="https://loading.io/spinners/ellipsis/lg.discuss-ellipsis-preloader.gif"

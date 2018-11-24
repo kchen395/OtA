@@ -301,6 +301,11 @@ ul li:not(:last-child) {
   margin-bottom: 0px;
 }
 
+.loading3 {
+  font-size: 40px;
+  margin-top: 300px;
+}
+
 .selector {
   padding-left: 10px;
 }
