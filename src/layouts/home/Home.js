@@ -6,6 +6,7 @@ import ContractForm from "./ContractForm.js";
 import PropTypes from "prop-types";
 import getWeb3 from "../../util/web3/getWeb3.js";
 import Modal from "react-responsive-modal";
+import Web3 from "web3";
 
 let web3;
 
@@ -91,7 +92,8 @@ class Home extends Component {
   }
 
   donate(receiver, amount) {
-    web3.eth.sendTransaction({
+		let send3 = new Web3(window.web3.currentProvider);
+    send3.eth.sendTransaction({
       from: this.state.account,
       to: receiver,
       value: web3.utils.toWei(amount)

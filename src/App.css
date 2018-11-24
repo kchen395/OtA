@@ -11,11 +11,13 @@ body,
 }
 
 .light {
-  background-color: white;
+	background-color: white;
+	height: 100%;
 }
 
 .b-color {
 	background-color: lightgrey;
+	height: 100%;
 }
 
 h1,
