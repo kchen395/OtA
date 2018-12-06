@@ -10,7 +10,7 @@ npm install
 ```
 
 ## Development
-To set up testing environment: 
+To set up development environment: 
 ```sh
 # Open up a new terminal to set up test blockchain with Ganache
 npm run chain
