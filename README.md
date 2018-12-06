@@ -1,5 +1,5 @@
 # OtA
-Decentralized Art Gallery
+Decentralized Art Gallery where users can upload previews and links to art onto the Ethereum blockchain. Users can upvote each artwork and donate Ether to any submitter.  
 
 ### Installing Dependencies
 
